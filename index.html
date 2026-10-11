@@ -3,430 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuestionario de Delfines 🐬</title>
+    <title>DoubleG - Hall of Fame del Código Espagueti</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            min-height: 100vh;
+            background-color: #0a0a0a;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
             padding: 20px;
         }
-        
-        .quiz-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
+        .container {
+            max-width: 800px;
+            border: 2px dashed #ff0055;
             padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: slideIn 0.8s ease-out;
+            background: rgba(20, 20, 20, 0.9);
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+            border-radius: 10px;
         }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .header h1 {
-            color: #2196F3;
+        h1 {
+            color: #ff0055;
             font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-        
-        .question {
-            background: linear-gradient(145deg, #f0f8ff, #e6f3ff);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-        
-        .question:nth-child(2) { animation-delay: 0.2s; }
-        .question:nth-child(3) { animation-delay: 0.4s; }
-        .question:nth-child(4) { animation-delay: 0.6s; }
-        
-        .question h3 {
-            color: #1976D2;
-            font-size: 1.3rem;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            text-shadow: 2px 2px #330011;
         }
-        
-        .question-number {
-            background: #2196F3;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        h2 {
+            color: #ffff00;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        .stats {
+            text-align: left;
+            background: #000;
+            padding: 20px;
+            border: 1px solid #00ff66;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .highlight {
+            color: #ff0055;
             font-weight: bold;
-            font-size: 0.9rem;
         }
-        
-        .options {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .option {
-            flex: 1;
-            max-width: 120px;
-        }
-        
-        .option input[type="radio"] {
-            display: none;
-        }
-        
-        .option label {
-            display: block;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 15px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .option label:hover {
-            border-color: #2196F3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
-        }
-        
-        .option input[type="radio"]:checked + label {
-            background: linear-gradient(145deg, #2196F3, #1976D2);
+        button {
+            background-color: #ff0055;
             color: white;
-            border-color: #1976D2;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.2s;
+            box-shadow: 0 0 10px #ff0055;
+        }
+        button:hover {
+            background-color: #cc0044;
+            box-shadow: 0 0 20px #ff0055;
             transform: scale(1.05);
         }
-        
-        .yes-label {
-            background: linear-gradient(145deg, #4CAF50, #45a049) !important;
-        }
-        
-        .no-label {
-            background: linear-gradient(145deg, #f44336, #d32f2f) !important;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(145deg, #FF6B35, #F7931E);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 30px auto 0;
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
-        }
-        
-        .submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .results {
-            display: none;
-            background: linear-gradient(145deg, #e8f5e8, #f0f8f0);
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 30px;
-            text-align: center;
-            border: 2px solid #4CAF50;
-        }
-        
-        .results h2 {
-            color: #2E7D32;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .result-item {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .result-question {
-            font-weight: bold;
-            color: #1976D2;
-            margin-bottom: 5px;
-        }
-        
-        .result-answer {
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-        
-        .answer-yes { color: #4CAF50; }
-        .answer-no { color: #f44336; }
-        
-        .reset-btn {
-            background: linear-gradient(145deg, #9C27B0, #7B1FA2);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        #message {
             margin-top: 20px;
+            color: #ffff00;
+            min-height: 30px;
+            font-weight: bold;
         }
-        
-        .reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .dolphin-emoji {
-            font-size: 1.5rem;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .quiz-container {
-                padding: 30px 20px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .options {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .option {
-                max-width: none;
-            }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="header">
-            <h1>🐬 Cuestionario de Delfines <span class="dolphin-emoji">🐬</span></h1>
-            <p>Responde estas 3 preguntas sobre tu experiencia con delfines</p>
+
+    <div class="container">
+        <h1>🚨 ALERTA DE SISTEMA: DOUBLEG DETECTED 🚨</h1>
+        <h2>Advertencia: Este servidor está siendo sobreescrito por código espagueti de alta peligrosidad.</h2>
+
+        <div class="stats">
+            > Analizando repositorio remoto...<br>
+            > Autor principal: <span class="highlight">DoubleG (El terror de Git)</span><br>
+            > Promedio de bugs por línea de código: <span class="highlight">2.45</span><br>
+            > Estado actual de producción: <span class="highlight" style="color: red;">🔥 EN LLAMAS 🔥</span><br>
+            > Vulnerabilidad favorita: <span class="highlight">Infinite While Loop sin condición de salida</span><br>
+            > Última frase célebre: <span class="highlight">"Pues en mi máquina local funcionaba perfectamente..."</span>
         </div>
+
+        <button onclick="lanzarParche()">Intentar arreglar el código de DoubleG</button>
         
-        <form id="dolphinQuiz">
-            <div class="question">
-                <h3>
-                    <span class="question-number">1</span>
-                    ¿Nadaste entre delfines alguna vez?
-                </h3>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q1_yes" name="question1" value="si">
-                        <label for="q1_yes" class="yes-label">✅ SÍ</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q1_no" name="question1" value="no">
-                        <label for="q1_no" class="no-label">❌ NO</label>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="question">
-                <h3>
-                    <span class="question-number">2</span>
-                    ¿Tuviste contacto alguna vez con un delfín?
-                </h3>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q2_yes" name="question2" value="si">
-                        <label for="q2_yes" class="yes-label">✅ SÍ</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q2_no" name="question2" value="no">
-                        <label for="q2_no" class="no-label">❌ NO</label>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="question">
-                <h3>
-                    <span class="question-number">3</span>
-                    ¿Vale más un delfín en mano que 100 pajarracas volando?
-                </h3>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" id="q3_yes" name="question3" value="si">
-                        <label for="q3_yes" class="yes-label">✅ SÍ</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" id="q3_no" name="question3" value="no">
-                        <label for="q3_no" class="no-label">❌ NO</label>
-                    </div>
-                </div>
-            </div>
-            
-            <button type="submit" class="submit-btn" id="submitBtn" disabled>
-                🐬 Ver Resultados
-            </button>
-        </form>
-        
-        <div class="results" id="results">
-            <h2>🎉 ¡Resultados del Cuestionario! 🎉</h2>
-            <div id="resultsList"></div>
-            <button class="reset-btn" onclick="resetQuiz()">🔄 Hacer el cuestionario otra vez</button>
-        </div>
+        <div id="message"></div>
     </div>
-    
+
+    <div class="footer">
+        Desplegado con miedo y dolor en GitHub Pages | Propiedad de la brigada anti-bugs.
+    </div>
+
     <script>
-        const form = document.getElementById('dolphinQuiz');
-        const submitBtn = document.getElementById('submitBtn');
-        const results = document.getElementById('results');
-        const resultsList = document.getElementById('resultsList');
-        
-        const questions = [
-            "¿Nadaste entre delfines alguna vez?",
-            "¿Tuviste contacto alguna vez con un delfín?",
-            "¿Vale más un delfín en mano que 100 pajarracas volando?"
+        const mensajesGraciosos = [
+            "⚠️ Error crítico: Al intentar borrar 1 bug, DoubleG ha creado 4 nuevos.",
+            "🔄 Iniciando bucle infinito... Por favor, espere para siempre.",
+            "💥 ¡Cuidado! DoubleG acaba de hacer un 'git push -f main' sin mirar.",
+            "☕ Aumento repentino de consumo de café detectado en el puesto de DoubleG.",
+            "🛡️ Firewall activado: Bloqueando intentos de usar 'SELECT * FROM users' sin WHERE.",
+            "❌ Fallo de compilación: El código es tan malo que el compilador se ha negado a leerlo."
         ];
-        
-        // Verificar si todas las preguntas están respondidas
-        function checkAllAnswered() {
-            const q1 = document.querySelector('input[name="question1"]:checked');
-            const q2 = document.querySelector('input[name="question2"]:checked');
-            const q3 = document.querySelector('input[name="question3"]:checked');
+
+        function lanzarParche() {
+            const mensajeDiv = document.getElementById('message');
+            const randomIndex = Math.floor(Math.random() * mensajesGraciosos.length);
+            mensajeDiv.textContent = mensajesGraciosos[randomIndex];
             
-            submitBtn.disabled = !(q1 && q2 && q3);
-        }
-        
-        // Agregar event listeners a todos los radio buttons
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', checkAllAnswered);
-        });
-        
-        // Manejar el envío del formulario
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const answers = [];
-            for (let i = 1; i <= 3; i++) {
-                const answer = document.querySelector(`input[name="question${i}"]:checked`).value;
-                answers.push(answer);
-            }
-            
-            showResults(answers);
-        });
-        
-        function showResults(answers) {
-            // Ocultar el formulario
-            form.style.display = 'none';
-            
-            // Mostrar resultados
-            results.style.display = 'block';
-            
-            // Generar lista de resultados
-            let resultsHTML = '';
-            answers.forEach((answer, index) => {
-                const answerText = answer === 'si' ? 'SÍ' : 'NO';
-                const answerClass = answer === 'si' ? 'answer-yes' : 'answer-no';
-                const emoji = answer === 'si' ? '✅' : '❌';
-                
-                resultsHTML += `
-                    <div class="result-item">
-                        <div class="result-question">${questions[index]}</div>
-                        <div class="result-answer ${answerClass}">${emoji} ${answerText}</div>
-                    </div>
-                `;
-            });
-            
-            resultsList.innerHTML = resultsHTML;
-            
-            // Scroll hasta los resultados
-            results.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function resetQuiz() {
-            // Resetear el formulario
-            form.reset();
-            
-            // Mostrar el formulario
-            form.style.display = 'block';
-            
-            // Ocultar resultados
-            results.style.display = 'none';
-            
-            // Deshabilitar el botón de envío
-            submitBtn.disabled = true;
-            
-            // Scroll hasta arriba
-            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
+            // Efecto sonoro visual o pequeño cambio de color en el borde
+            const container = document.querySelector('.container');
+            container.style.borderColor = '#' + Math.floor(Math.random()*16777215).toString(16);
         }
     </script>
 </body>
